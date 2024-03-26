@@ -12,5 +12,7 @@ data class MealModel(
     @ColumnInfo(name = "mealName")
     val mealName: String,
     @ColumnInfo(name = "mealPicture")
-    val mealPicture: String
+    val mealPicture: String,
+    @ColumnInfo(name = "category")
+    val category: String
 )

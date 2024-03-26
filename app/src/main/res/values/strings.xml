@@ -1,11 +1,24 @@
 <resources>
     <string name="app_name">GoSportTestQuest</string>
 
+    <!-- Another screens -->
     <string name="screen_stub">ЗАГЛУШКА</string>
 
+    <!-- Bottom nav -->
     <string name="bottom_nav_menu_title">Меню</string>
     <string name="bottom_nav_cart_title">Корзина</string>
     <string name="bottom_nav_profile_title">Профиль</string>
 
+    <!-- Home screen toolbar -->
     <string name="menu_city">Москва</string>
+
+    <!-- Tags -->
+    <string name="tag_pizza">Pizza</string>
+    <string name="tag_combo">Комбо</string>
+    <string name="tag_drinks">Напитки</string>
+    <string name="tag_desserts">Десерты</string>
+
+    <!-- Meal widget -->
+    <string name="from">от</string>
+    <string name="rub">руб</string>
 </resources>

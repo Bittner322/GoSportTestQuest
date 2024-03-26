@@ -4,8 +4,10 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import androidx.room.Update
 import com.mikhail.gosporttestquest.data.database.models.MealModel
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MealDao {
@@ -20,4 +22,7 @@ interface MealDao {
 
     @Delete
     suspend fun delete(mealModel: MealModel)
+
+    @Query("SELECT * FROM MealModel WHERE category = :category")
+    fun getMealsData(category: String): Flow<List<MealModel>>
 }
