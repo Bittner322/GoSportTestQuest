@@ -31,7 +31,7 @@ fun BottomNavigationBar(navController: NavHostController) {
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             NavigationBar(
-                containerColor = SportTheme.color.white
+                containerColor = SportTheme.color.bottomNavBackground
             ) {
                 BottomNavigationItem().bottomNavigationItems().forEachIndexed { index, navigationItem ->
                     NavigationBarItem(

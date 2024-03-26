@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">GoSportTestQuest</string>
 
+    <string name="screen_stub">ЗАГЛУШКА</string>
+
     <string name="bottom_nav_menu_title">Меню</string>
     <string name="bottom_nav_cart_title">Корзина</string>
     <string name="bottom_nav_profile_title">Профиль</string>
+
+    <string name="menu_city">Москва</string>
 </resources>

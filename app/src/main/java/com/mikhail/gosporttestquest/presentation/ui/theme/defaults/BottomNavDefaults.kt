@@ -10,7 +10,7 @@ object SportBottomNavDefaults {
 
     @Composable
     fun bottomNavItemColors(
-        indicatorColor: Color = SportTheme.color.white,
+        indicatorColor: Color = SportTheme.color.bottomNavBackground,
         selectedColor: Color = SportTheme.color.pink,
         unselectedColor: Color = SportTheme.color.grey
     ): NavigationBarItemColors {
