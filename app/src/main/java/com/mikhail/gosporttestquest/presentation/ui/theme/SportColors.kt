@@ -10,6 +10,7 @@ data class SportColors(
     val pink: Color,
     val lightPink: Color,
     val bottomNavBackground: Color,
+    val dividers: Color,
     val black: Color
 )
 
@@ -21,6 +22,7 @@ fun ProvideSportColors(): SportColors {
         pink = Color(0xFFFD3A69),
         lightPink = Color(0xFFFD3A69).copy(alpha = 0.2f),
         bottomNavBackground = Color(0xFFF0F0F0),
+        dividers = Color(0xFFF3F5F9),
         black = Color(0xFF000000),
     )
 }

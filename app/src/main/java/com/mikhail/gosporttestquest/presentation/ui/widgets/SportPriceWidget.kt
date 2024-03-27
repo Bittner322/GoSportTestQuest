@@ -15,7 +15,7 @@ import com.mikhail.gosporttestquest.presentation.ui.theme.SportTheme
 
 @Composable
 fun SportPriceWidget(
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier

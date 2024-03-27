@@ -9,15 +9,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.mikhail.gosporttestquest.data.network.models.Categories
 import com.mikhail.gosporttestquest.presentation.ui.compose_extensions.runIf
 import com.mikhail.gosporttestquest.presentation.ui.theme.SportTheme
 
 @Composable
 fun SportSortTag(
-    tag: Tag,
+    category: Categories.Category,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     isActive: Boolean = false
@@ -38,9 +39,14 @@ fun SportSortTag(
             }
             .border(
                 width = 1.dp,
-                color = SportTheme.color.pink,
+                color = if (isActive) {
+                    SportTheme.color.pink
+                } else {
+                    SportTheme.color.white
+                },
                 shape = RoundedCornerShape(6.dp)
             )
+            .clip(RoundedCornerShape(6.dp))
             .clickable { onClick() }
     ) {
         Text(
@@ -49,7 +55,7 @@ fun SportSortTag(
                     vertical = 8.dp,
                     horizontal = 24.dp
                 ),
-            text = stringResource(tag.tagStringResource),
+            text = category.strCategory,
             style = if (isActive) {
                 SportTheme.typography.activeTagTitle
             } else {

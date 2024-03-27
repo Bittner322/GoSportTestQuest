@@ -12,19 +12,19 @@ class MealRepository @Inject constructor(
     private val networkService: NetworkService,
     private val database: AppDatabase
 ) {
-    private suspend fun loadMealsFromNetwork(category: String): List<MealModel> {
-        return networkService.getMeals(category = category).meals.map { meal ->
+    private suspend fun loadMealsFromNetwork(): List<MealModel> {
+        return networkService.getMeals().meals.map { meal ->
             MealModel(
                 id = meal.idMeal,
                 mealName = meal.strMeal,
                 mealPicture = meal.strMealThumb,
-                category = category
+                category = meal.strCategory
             )
         }
     }
 
-    suspend fun loadAllMealsIntoDatabase(category: String) {
-        database.mealDao().insertAll(loadMealsFromNetwork(category))
+    suspend fun loadAllMealsIntoDatabase() {
+        database.mealDao().insertAll(loadMealsFromNetwork())
     }
 
     fun getMealsFlow(
