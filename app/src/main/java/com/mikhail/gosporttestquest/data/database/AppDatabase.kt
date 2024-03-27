@@ -6,10 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mikhail.gosporttestquest.data.database.dao.CategoryDao
 import com.mikhail.gosporttestquest.data.database.dao.MealDao
+import com.mikhail.gosporttestquest.data.database.models.CategoryModel
 import com.mikhail.gosporttestquest.data.database.models.MealModel
 
 @Database(
-    entities = [MealModel::class],
+    entities = [MealModel::class, CategoryModel::class],
     version = 2,
     exportSchema = false
 )

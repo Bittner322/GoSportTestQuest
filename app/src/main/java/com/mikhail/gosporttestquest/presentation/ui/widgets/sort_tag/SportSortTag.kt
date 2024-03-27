@@ -12,13 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.mikhail.gosporttestquest.data.network.models.Categories
+import com.mikhail.gosporttestquest.data.database.models.CategoryModel
 import com.mikhail.gosporttestquest.presentation.ui.compose_extensions.runIf
 import com.mikhail.gosporttestquest.presentation.ui.theme.SportTheme
 
 @Composable
 fun SportSortTag(
-    category: Categories.Category,
+    category: CategoryModel,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     isActive: Boolean = false
@@ -55,7 +55,7 @@ fun SportSortTag(
                     vertical = 8.dp,
                     horizontal = 24.dp
                 ),
-            text = category.strCategory,
+            text = category.name,
             style = if (isActive) {
                 SportTheme.typography.activeTagTitle
             } else {

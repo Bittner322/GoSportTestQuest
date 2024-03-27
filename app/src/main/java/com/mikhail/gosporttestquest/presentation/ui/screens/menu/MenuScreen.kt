@@ -21,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mikhail.gosporttestquest.R
 import com.mikhail.gosporttestquest.presentation.ui.theme.SportTheme
 import com.mikhail.gosporttestquest.presentation.ui.theme.bottomNavHeight
+import com.mikhail.gosporttestquest.presentation.ui.widgets.SportBanner
 import com.mikhail.gosporttestquest.presentation.ui.widgets.SportMealWidget
 import com.mikhail.gosporttestquest.presentation.ui.widgets.SportTopBar
 import com.mikhail.gosporttestquest.presentation.ui.widgets.custom_toolbar.SportToolbar
@@ -31,6 +32,8 @@ fun MenuScreen(
     viewModel: MenuScreenViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val categories by viewModel.categoriesFlow.collectAsState()
+    val meals by viewModel.mealsFlow.collectAsState()
 
     Column(
         modifier = Modifier
@@ -47,8 +50,9 @@ fun MenuScreen(
                 modifier = Modifier.align(Alignment.Center)
             )
         }*/
-
         SportToolbar(
+            modifier = Modifier
+                .background(SportTheme.color.white),
             centralContent = {
                 SportTopBar(city = stringResource(R.string.menu_city))
             },
@@ -56,20 +60,28 @@ fun MenuScreen(
                 LazyRow(
                     modifier = Modifier.padding(top = 16.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    items(2) {
+                        SportBanner()
+                    }
+                }
+                LazyRow(
+                    modifier = Modifier.padding(top = 16.dp),
+                    contentPadding = PaddingValues(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(Tag.entries.toTypedArray()) { tag ->
+                    items(categories) { category ->
                         SportSortTag(
-                            tag = tag,
+                            category = category,
                             onClick = { /*TODO*/ },
-                            isActive = uiState.activeTag == tag
+                            isActive = uiState.activeTag == category.name
                         )
                     }
                 }
             }
         )
 
-        val meals by viewModel.mealsFlow.collectAsState()
         LazyColumn {
             items(meals) {meal ->
                 SportMealWidget(meal = meal)

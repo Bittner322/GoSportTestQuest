@@ -6,7 +6,6 @@ import com.mikhail.gosporttestquest.data.network.NetworkService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class CategoriesRepository @Inject constructor(
@@ -31,11 +30,5 @@ class CategoriesRepository @Inject constructor(
     fun getCategoryFlow(): Flow<List<CategoryModel>> {
         return database.categoryDao().getCategoryData()
             .flowOn(Dispatchers.IO)
-    }
-
-    suspend fun getFirstCategory(): CategoryModel {
-        return withContext(Dispatchers.IO) {
-            database.categoryDao().getFirstCategory()
-        }
     }
 }

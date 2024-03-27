@@ -25,7 +25,4 @@ interface CategoryDao {
 
     @Query("SELECT * FROM CategoryModel")
     fun getCategoryData(): Flow<List<CategoryModel>>
-
-    @Query("SELECT * FROM CategoryModel LIMIT 1")
-    fun getFirstCategory(): CategoryModel
 }

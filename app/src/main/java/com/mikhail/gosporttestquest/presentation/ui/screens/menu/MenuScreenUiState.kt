@@ -1,13 +1,13 @@
 package com.mikhail.gosporttestquest.presentation.ui.screens.menu
 
-import com.mikhail.gosporttestquest.data.database.models.CategoryModel
+private const val DEFAULT_ACTIVE_CATEGORY_TAG = "Seafood"
 
 data class MenuScreenUiState(
-    val activeTag: CategoryModel
+    val activeTag: String
 ) {
     companion object {
         val default = MenuScreenUiState(
-            activeTag = TODO()
+            activeTag = DEFAULT_ACTIVE_CATEGORY_TAG
         )
     }
 }
