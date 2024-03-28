@@ -81,6 +81,10 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.ksp)
     implementation(libs.coil)
+    implementation(libs.ktor.core)
+    implementation(libs.ktor.android)
+    implementation(libs.ktor.cio)
+    implementation(libs.ktor.websockets)
     debugImplementation(libs.compose.tooling.preview)
     debugImplementation(libs.compose.test.manifest)
 }

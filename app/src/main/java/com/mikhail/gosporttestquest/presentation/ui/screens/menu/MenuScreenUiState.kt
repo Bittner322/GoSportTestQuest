@@ -1,6 +1,6 @@
 package com.mikhail.gosporttestquest.presentation.ui.screens.menu
 
-private const val DEFAULT_ACTIVE_CATEGORY_TAG = "Seafood"
+private const val DEFAULT_ACTIVE_CATEGORY_TAG = "Beef"
 
 data class MenuScreenUiState(
     val activeTag: String

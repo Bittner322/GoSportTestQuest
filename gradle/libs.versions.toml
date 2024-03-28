@@ -14,6 +14,7 @@ compose-navigation = "2.7.7"
 room = "2.6.1"
 ksp = "1.9.22-1.0.17"
 coil = "2.6.0"
+ktor = "2.3.8"
 
 [libraries]
 
@@ -54,4 +55,9 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
 
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-websockets = { module = "io.ktor:ktor-websockets", version.ref = "ktor" }
 

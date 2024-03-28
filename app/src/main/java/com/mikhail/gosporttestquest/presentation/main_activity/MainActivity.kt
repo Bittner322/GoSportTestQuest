@@ -22,7 +22,6 @@ class MainActivity : ComponentActivity() {
             this.window.statusBarColor = ContextCompat.getColor(this, R.color.status_bar_color)
             this.window.navigationBarColor = ContextCompat.getColor(this, R.color.navigation_bar_color)
             SportTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

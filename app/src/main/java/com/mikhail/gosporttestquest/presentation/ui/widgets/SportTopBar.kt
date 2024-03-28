@@ -2,6 +2,7 @@ package com.mikhail.gosporttestquest.presentation.ui.widgets
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,7 +27,10 @@ fun SportTopBar(
     CenterAlignedTopAppBar(
         modifier = modifier,
         navigationIcon = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.padding(start = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
                     text = city,
                     color = SportTheme.color.black,
@@ -42,6 +46,7 @@ fun SportTopBar(
         },
         actions = {
             Icon(
+                modifier = Modifier.padding(end = 16.dp),
                 painter = painterResource(R.drawable.ic_qr_code),
                 contentDescription = null
             )

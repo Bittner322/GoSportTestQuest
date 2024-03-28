@@ -1,7 +1,6 @@
 package com.mikhail.gosporttestquest.presentation.ui.widgets.sort_tag
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -9,7 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mikhail.gosporttestquest.data.database.models.CategoryModel
@@ -25,6 +24,12 @@ fun SportSortTag(
 ) {
     Box(
         modifier = modifier
+            .runIf(!isActive) {
+                shadow(
+                    elevation = 2.dp,
+                    shape = RoundedCornerShape(6.dp),
+                )
+            }
             .runIf(isActive) {
                 background(
                     color = SportTheme.color.lightPink,
@@ -37,16 +42,6 @@ fun SportSortTag(
                     shape = RoundedCornerShape(6.dp)
                 )
             }
-            .border(
-                width = 1.dp,
-                color = if (isActive) {
-                    SportTheme.color.pink
-                } else {
-                    SportTheme.color.lightGrey
-                },
-                shape = RoundedCornerShape(6.dp)
-            )
-            .clip(RoundedCornerShape(6.dp))
             .clickable { onClick() }
     ) {
         Text(

@@ -51,6 +51,7 @@ fun SportMealWidget(
                 modifier = Modifier
                     .padding(
                         start = 22.dp,
+                        top = 16.dp,
                         end = 8.dp
                     )
             ) {
@@ -68,6 +69,7 @@ fun SportMealWidget(
                     style = SportTheme.typography.descriptionTitle,
                     color = SportTheme.color.lightGrey
                 )
+                Spacer(modifier = Modifier.weight(1f))
                 SportPriceWidget(
                     modifier = Modifier
                         .padding(top = 8.dp)

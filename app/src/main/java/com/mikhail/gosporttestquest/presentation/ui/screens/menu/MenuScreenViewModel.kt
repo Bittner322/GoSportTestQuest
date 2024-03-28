@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mikhail.gosporttestquest.data.database.models.CategoryModel
 import com.mikhail.gosporttestquest.data.database.models.MealModel
+import com.mikhail.gosporttestquest.data.network.connectivity_check.ConnectivityObserver
+import com.mikhail.gosporttestquest.data.network.connectivity_check.NetworkConnectivityObserver
 import com.mikhail.gosporttestquest.data.repositories.CategoriesRepository
 import com.mikhail.gosporttestquest.data.repositories.MealRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MenuScreenViewModel @Inject constructor(
     private val mealRepository: MealRepository,
-    private val categoriesRepository: CategoriesRepository
+    private val categoriesRepository: CategoriesRepository,
+    networkStatusTracker: NetworkConnectivityObserver
 ) : ViewModel() {
     val isDataLoaded = mutableStateOf(false)
 
@@ -33,10 +36,40 @@ class MenuScreenViewModel @Inject constructor(
     private val _categoriesFlow = MutableStateFlow(emptyList<CategoryModel>())
     val categoriesFlow = _categoriesFlow.asStateFlow()
 
+    val connectionState = networkStatusTracker.observe()
+
     init {
+        viewModelScope.launch {
+            connectionState
+                .collect { status ->
+                    when (status) {
+                        ConnectivityObserver.Status.Available -> {
+                            onScreenComposedOnline()
+                        }
+                        ConnectivityObserver.Status.Losing -> {
+                            // ignore
+                        }
+                        ConnectivityObserver.Status.Lost -> {
+                            onScreenComposedOffline()
+                        }
+                        ConnectivityObserver.Status.Unavailable -> {
+                            onScreenComposedOffline()
+                        }
+                    }
+                }
+        }
+    }
+
+    fun onScreenComposedOnline() {
         viewModelScope.launch {
             categoriesRepository.loadAllCategoriesIntoDatabase()
             mealRepository.loadAllMealsIntoDatabase()
+            getCategories()
+        }
+    }
+
+    fun onScreenComposedOffline() {
+        viewModelScope.launch {
             getCategories()
         }
     }
@@ -57,8 +90,10 @@ class MenuScreenViewModel @Inject constructor(
                 _categoriesFlow.value = it
             }
             .map { categories ->
-                getSortedMeals(categories.first().name)
-                isDataLoaded.value = true
+                if (categories.isNotEmpty()) {
+                    getSortedMeals(categories.first().name)
+                    isDataLoaded.value = true
+                }
             }
             .launchIn(viewModelScope)
     }
@@ -67,8 +102,6 @@ class MenuScreenViewModel @Inject constructor(
         _uiState.update {
             it.copy(activeTag = tag)
         }
-        _categoriesFlow.value.map { category ->
-            getSortedMeals(category.name)
-        }
+        getSortedMeals(tag)
     }
 }
