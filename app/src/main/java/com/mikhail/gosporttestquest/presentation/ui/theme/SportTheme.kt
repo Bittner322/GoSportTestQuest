@@ -30,4 +30,4 @@ object SportTheme {
         get() = LocalSportTypography.current
 }
 
-val bottomNavHeight = 56.dp
+val bottomNavHeight = 80.dp

@@ -1,6 +1,6 @@
 package com.mikhail.gosporttestquest.presentation.ui.screens.menu
 
-import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mikhail.gosporttestquest.data.database.models.CategoryModel
@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class MenuScreenViewModel @Inject constructor(
     private val mealRepository: MealRepository,
     private val categoriesRepository: CategoriesRepository
 ) : ViewModel() {
-    var isDataLoaded = false
+    val isDataLoaded = mutableStateOf(false)
 
     private val _uiState = MutableStateFlow(MenuScreenUiState.default)
     val uiState = _uiState.asStateFlow()
@@ -33,19 +34,17 @@ class MenuScreenViewModel @Inject constructor(
     val categoriesFlow = _categoriesFlow.asStateFlow()
 
     init {
-        loadAllCategories()
-        loadAllMeals()
-        getCategories()
-        //getSortedMeals(_categoriesFlow.value.first().name)
-        isDataLoaded = true
+        viewModelScope.launch {
+            categoriesRepository.loadAllCategoriesIntoDatabase()
+            mealRepository.loadAllMealsIntoDatabase()
+            getCategories()
+        }
     }
 
     private fun getSortedMeals(category: String) {
         mealRepository
             .getMealsFlow(category)
             .onEach {
-                Log.d("LOGTAG", "getSortedMeals: ${it}")
-
                 _mealsFlow.value = it
             }
             .launchIn(viewModelScope)
@@ -59,19 +58,17 @@ class MenuScreenViewModel @Inject constructor(
             }
             .map { categories ->
                 getSortedMeals(categories.first().name)
+                isDataLoaded.value = true
             }
             .launchIn(viewModelScope)
     }
 
-    private fun loadAllCategories() {
-        viewModelScope.launch {
-            categoriesRepository.loadAllCategoriesIntoDatabase()
+    fun onActiveTagChange(tag: String) {
+        _uiState.update {
+            it.copy(activeTag = tag)
         }
-    }
-
-    private fun loadAllMeals() {
-        viewModelScope.launch {
-            mealRepository.loadAllMealsIntoDatabase()
+        _categoriesFlow.value.map { category ->
+            getSortedMeals(category.name)
         }
     }
 }

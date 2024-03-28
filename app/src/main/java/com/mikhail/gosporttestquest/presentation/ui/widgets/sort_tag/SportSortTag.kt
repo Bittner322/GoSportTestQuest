@@ -42,7 +42,7 @@ fun SportSortTag(
                 color = if (isActive) {
                     SportTheme.color.pink
                 } else {
-                    SportTheme.color.white
+                    SportTheme.color.lightGrey
                 },
                 shape = RoundedCornerShape(6.dp)
             )
